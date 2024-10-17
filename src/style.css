@@ -289,12 +289,3 @@ ul li a {
 .food {
     color: hsl(12, 20%, 44%);
 }
-
-@media (max-width: 1050px) {
-    .hideOnMobile {
-        display: none;
-    }
-    .menu-button {
-        display: block;
-    }
-}
