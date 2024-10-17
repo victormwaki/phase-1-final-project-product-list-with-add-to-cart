@@ -52,7 +52,7 @@ header {
     transition: 2s ease;
 }
 
-.sidebar {
+/* .sidebar {
     margin: 20px 68px;
     padding: 0;
     position: fixed;
@@ -75,7 +75,7 @@ header {
     width: max-content;
     padding: 0;
     margin: 20px 20px;
-}
+} */
 
 .menu-button {
     list-style: none;
@@ -84,7 +84,7 @@ header {
 
 ul {
     list-style: none;
-   /* margin-left: 250px; */
+   margin-left: 250px;
 }
 
 ul li {
@@ -102,7 +102,7 @@ ul li:hover::after {
     border-radius: 50%;
     position: absolute;
     bottom: 0;
-    left: 20px;
+    left: 0px;
 }
 
 ul li a {
