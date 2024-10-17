@@ -5,6 +5,7 @@ fetch('data.json')
     const gallery = document.getElementById('gallery');
     const cartItems = []; // Array to store items added to cart
     let cartCount = 0;    // Variable to track number of items in cart
+    let totalPrice = 0;   // Variable to track total price of items in the cart
 
     // Loop through the fetched data and create cards for each product
     data.forEach(product => {
@@ -48,6 +49,7 @@ fetch('data.json')
     function addToCart(product) {
       cartItems.push(product); // Add product to the cart array
       cartCount++; // Increase the count of items in the cart
+      totalPrice += product.price; // Add the product price to the total
       updateCartDisplay(); // Update the cart UI
     }
 
@@ -55,6 +57,7 @@ fetch('data.json')
     function updateCartDisplay() {
       const cartItemsDiv = document.getElementById('cart-items');
       const cartCountSpan = document.getElementById('cart-count');
+      const cartTotalDiv = document.getElementById('cart-total');
 
       // Clear previous cart display
       cartItemsDiv.innerHTML = '';
@@ -76,9 +79,13 @@ fetch('data.json')
         cartItemsDiv.appendChild(cartItemDiv);
       });
 
+      // Display the total price of items in the cart
+      cartTotalDiv.textContent = `Total: $${totalPrice.toFixed(2)}`;
+
       // If cart is empty, show a message
       if (cartItems.length === 0) {
         cartItemsDiv.innerHTML = '<p>Your added items will appear here</p>';
+        cartTotalDiv.textContent = 'Total: $0.00';
       }
     }
   })
