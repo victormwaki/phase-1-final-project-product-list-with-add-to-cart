@@ -1,6 +1,6 @@
 // Fetch products from a JSON file and render them in the gallery
 fetch('data.json')
-  .then(response => response.json()) // Convert response to JSON
+  .then(response => response.json())
   .then(data => {
     const gallery = document.getElementById('gallery');
     const cartItems = []; // Array to store items added to cart
@@ -58,6 +58,7 @@ fetch('data.json')
       const cartItemsDiv = document.getElementById('cart-items');
       const cartCountSpan = document.getElementById('cart-count');
       const cartTotalDiv = document.getElementById('cart-total');
+      const confirmOrderButton = document.getElementById('confirm-order'); // Select confirm button
 
       // Clear previous cart display
       cartItemsDiv.innerHTML = '';
@@ -66,13 +67,14 @@ fetch('data.json')
       cartCountSpan.textContent = `(${cartCount})`;
 
       // Loop through cart items and display them
-      cartItems.forEach(item => {
+      cartItems.forEach((item, index) => {
         const cartItemDiv = document.createElement('div');
         cartItemDiv.classList.add('cart-item');
 
-        // Display product name and price
+        // Display product name, price, and add the delete icon (X)
         cartItemDiv.innerHTML = `
           <p>${item.name} - $${item.price.toFixed(2)}</p>
+          <button class="remove-item" data-index="${index}">X</button>
         `;
 
         // Add the cart item to the cart-items div
@@ -82,11 +84,45 @@ fetch('data.json')
       // Display the total price of items in the cart
       cartTotalDiv.textContent = `Total: $${totalPrice.toFixed(2)}`;
 
+      // Show the confirm order button if there are items in the cart
+      if (cartItems.length > 0) {
+        confirmOrderButton.style.display = 'block';
+      } else {
+        confirmOrderButton.style.display = 'none';
+      }
+
       // If cart is empty, show a message
       if (cartItems.length === 0) {
-        cartItemsDiv.innerHTML = '<p>Your added items will appear here</p>';
+        cartItemsDiv.innerHTML = '<p>Your cart is empty</p>';
         cartTotalDiv.textContent = 'Total: $0.00';
       }
     }
+
+    // Listen for click events on the remove buttons in the cart
+    document.getElementById('cart-items').addEventListener('click', (event) => {
+      if (event.target.classList.contains('remove-item')) {
+        const index = event.target.getAttribute('data-index');
+        removeFromCart(index);
+      }
+    });
+
+    // Function to remove an item from the cart
+    function removeFromCart(index) {
+      const removedItem = cartItems.splice(index, 1)[0]; // Remove item from cart array
+      cartCount--; // Decrease cart count
+      totalPrice -= removedItem.price; // Subtract price from total
+      updateCartDisplay(); // Update cart UI
+    }
+
+    // Handle order confirmation
+    document.getElementById('confirm-order').addEventListener('click', () => {
+      alert(`Thank you for your order! Your total is $${totalPrice.toFixed(2)}.`);
+      
+      // Clear the cart after confirming the order
+      cartItems.length = 0;
+      cartCount = 0;
+      totalPrice = 0;
+      updateCartDisplay();
+    });
   })
   .catch(error => console.error('Error fetching products:', error));
