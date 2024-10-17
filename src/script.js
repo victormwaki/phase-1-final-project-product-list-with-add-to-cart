@@ -116,7 +116,8 @@ fetch('data.json')
 
     // Handle order confirmation
     document.getElementById('confirm-order').addEventListener('click', () => {
-      alert(`Thank you for your order! Your total is $${totalPrice.toFixed(2)}.`);
+      alert(`Thank you for your order! Your total is $${totalPrice.toFixed(2)}.
+Click ok to go to the net screen`);
       
       // Clear the cart after confirming the order
       cartItems.length = 0;
