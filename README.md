@@ -40,3 +40,7 @@ How to Run the Project
 - Ensure you have the data.json file containing the product data.
 - Open the index.html file in a browser.
 - Browse through the available desserts, add items to the cart, and proceed to confirm your order.
+
+Additionals to Add in the Future
+- functionality of the sign up button,sign in button.
+- also the functionality of the home, about and the contact list 
